@@ -1,0 +1,16 @@
+spring:
+  profiles:
+    active: prod
+  datasource:
+    url: vote-database.cfiymiwi4n93.ap-northeast-2.rds.amazonaws.com:3306/vote_database
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: vote
+    password: 8bitvote
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  jwt:
+    secret: vmfhaltmskdlstkfkdgodyroqkfwkdbalroqkfwkdbalaaaaaaaaaaaaaaaabbbbb
