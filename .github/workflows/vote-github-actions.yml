@@ -1,106 +1,106 @@
-#name: vote-github-actions
-#
-#
-#on:
-#  push:
-#    branches: [ "main" ] # 해당 branch에 푸쉬 발생 시 업데이트
-#
-#jobs:
-#  CI-CD:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v3
-#      - name: Set up JDK 22
-#        uses: actions/setup-java@v2
-#        with:
-#          java-version: '22'
-#          distribution: 'temurin'
-#
-#      - name: set yml file
-#        uses: microsoft/variable-substitution@v1
-#        with:
-#          files: src/main/java/resources/application.yml
-#        env:
-#          spring.datasource.url: ${{ secrets.DB_URL }}
-#          spring.datasource.username: ${{ secrets.DB_USERNAME }}
-#          spring.datasource.password: ${{ secrets.DB_PASSWORD }}
-#          application.jwt.secretKey: ${{ secrets.JWT_SECRET_KEY }}
-#
-#      - name: set chmod
-#        run: chmod +x ./gradlew
-#
-#      - name: Build with Gradle
-#        run: ./gradlew bootJar
-#
-#      - name: Docker build & push to prod
-#        run: |
-#          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-#          docker build -f Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/Vote:latest .
-#          docker push ${{ secrets.DOCKER_USERNAME }}/Vote:latest
-#
-#      - name: Deploy to prod
-#        uses: appleboy/ssh-action@master
-#        id: deploy-prod
-#        with:
-#          host: ${{ secrets.HOST_PROD }} # EC2 퍼블릭 IPv4 DNS
-#          username: ubuntu
-#          key: ${{ secrets.PRIVATE_KEY }} # EC2 private key
-#          envs: GITHUB_SHA
-#          script: |
-#            docker stop Vote
-#            docker rm Vote
-#            docker rmi ${{ secrets.DOCKER_USERNAME }}/Vote:latest
-#            docker pull ${{ secrets.DOCKER_USERNAME }}/Vote:latest
-#            docker run -d -p 8080:8080 --name Vote ${{ secrets.DOCKER_USERNAME }}/Vote:latest
-
 name: vote-github-actions
+
 
 on:
   push:
-    branches:
-      - main  # main 브랜치에 푸시될 때마다 실행
+    branches: [ "main" ] # 해당 branch에 푸쉬 발생 시 업데이트
 
 jobs:
-  deploy:
+  CI-CD:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
+      - uses: actions/checkout@v3
+      - name: Set up JDK 22
+        uses: actions/setup-java@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          java-version: '22'
+          distribution: 'temurin'
 
-      - name: Build and push Docker image
+      - name: set yml file
+        uses: microsoft/variable-substitution@v1
+        with:
+          files: src/main/java/resources/application.yml
+        env:
+          spring.datasource.url: ${{ secrets.DB_URL }}
+          spring.datasource.username: ${{ secrets.DB_USERNAME }}
+          spring.datasource.password: ${{ secrets.DB_PASSWORD }}
+          application.jwt.secretKey: ${{ secrets.JWT_SECRET_KEY }}
+
+      - name: set chmod
+        run: chmod +x ./gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew bootJar
+
+      - name: Docker build & push to prod
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/tlsalsco41122/vote:latest .
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker build -f Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/tlsalsco41122/vote:latest .
           docker push ${{ secrets.DOCKER_USERNAME }}/tlsalsco41122/vote:latest
 
-      - name: Set up AWS CLI
-        uses: aws-actions/configure-aws-credentials@v3
+      - name: Deploy to prod
+        uses: appleboy/ssh-action@master
+        id: deploy-prod
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-
-      - name: Deploy to AWS ECS
-        run: |
-          aws ecs update-service --cluster my-cluster --service my-service --force-new-deployment
-
-      - name: SSH into Production Server
-        uses: appleboy/ssh-action@v0.1.9
-        with:
-          host: ${{ secrets.HOST_PROD }}
-          username: ec2-user
-          key: ${{ secrets.PRIVATE_KEY }}
+          host: ${{ secrets.HOST_PROD }} # EC2 퍼블릭 IPv4 DNS
+          username: tlsalsco41122
+          key: ${{ secrets.PRIVATE_KEY }} # EC2 private key
+          envs: GITHUB_SHA
           script: |
+            docker stop tlsalsco41122/vote
+            docker rm tlsalsco41122/vote
+            docker rmi ${{ secrets.DOCKER_USERNAME }}/tlsalsco41122/vote:latest
             docker pull ${{ secrets.DOCKER_USERNAME }}/tlsalsco41122/vote:latest
-            docker stop my-app || true
-            docker rm my-app || true
-            docker run -d --name my-app -p 80:80 ${{ secrets.DOCKER_USERNAME }}/tlsalsco41122/vote:latest
+            docker run -d -p 8080:8080 --name Vote ${{ secrets.DOCKER_USERNAME }}/tlsalsco41122/vote:latest
+#
+#name: vote-github-actions
+#
+#on:
+#  push:
+#    branches:
+#      - main  # main 브랜치에 푸시될 때마다 실행
+#
+#jobs:
+#  deploy:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      - name: Set up Docker Buildx
+#        uses: docker/setup-buildx-action@v2
+#
+#      - name: Log in to Docker Hub
+#        uses: docker/login-action@v3
+#        with:
+#          username: ${{ secrets.DOCKER_USERNAME }}
+#          password: ${{ secrets.DOCKER_PASSWORD }}
+#
+#      - name: Build and push Docker image
+#        run: |
+#          docker build -t ${{ secrets.DOCKER_USERNAME }}/tlsalsco41122/vote:latest .
+#          docker push ${{ secrets.DOCKER_USERNAME }}/tlsalsco41122/vote:latest
+#
+#      - name: Set up AWS CLI
+#        uses: aws-actions/configure-aws-credentials@v3
+#        with:
+#          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          aws-region: us-east-1
+#
+#      - name: Deploy to AWS ECS
+#        run: |
+#          aws ecs update-service --cluster my-cluster --service my-service --force-new-deployment
+#
+#      - name: SSH into Production Server
+#        uses: appleboy/ssh-action@v0.1.9
+#        with:
+#          host: ${{ secrets.HOST_PROD }}
+#          username: ec2-user
+#          key: ${{ secrets.PRIVATE_KEY }}
+#          script: |
+#            docker pull ${{ secrets.DOCKER_USERNAME }}/tlsalsco41122/vote:latest
+#            docker stop my-app || true
+#            docker rm my-app || true
+#            docker run -d --name my-app -p 80:80 ${{ secrets.DOCKER_USERNAME }}/tlsalsco41122/vote:latest
