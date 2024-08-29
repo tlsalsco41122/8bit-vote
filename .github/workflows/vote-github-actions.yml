@@ -67,4 +67,4 @@ jobs:
             docker rm 8bit-vote
             docker rmi ${{ secrets.DOCKER_USERNAME }}/8bit-vote:latest
             docker pull ${{ secrets.DOCKER_USERNAME }}/8bit-vote:latest
-            docker run -d -p 80:8080 --name 8bit-vote ${{ secrets.DOCKERHUB_USERNAME }}8bit-vote:latest
+            docker run -d -p 80:8080 --name 8bit-vote ${{ secrets.DOCKERHUB_USERNAME }}/8bit-vote:latest
