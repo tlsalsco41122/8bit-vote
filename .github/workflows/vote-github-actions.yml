@@ -53,3 +53,18 @@ jobs:
       # 5. Docker Hub 이미지 푸시
       - name: docker Hub push
         run: docker push ${{ secrets.DOCKER_USERNAME }}/8bit-vote:latest
+
+      - name: EC2 Docker Run
+          uses: appleboy/ssh-action@v0.1.8
+          with:
+            host: ${{ secrets.EC2_HOST }}
+            username: ${{ secrets.EC2_USERNAME }}
+            key: ${{ secrets.EC2_KEY }}
+            port: ${{ secrets.EC2_PORT }}
+            script: |
+              docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+              docker stop 8bit-vote
+              docker rm 8bit-vote
+              docker rmi ${{ secrets.DOCKER_USERNAME }}/8bit-vote:latest
+              docker pull ${{ secrets.DOCKER_USERNAME }}/8bit-vote:latest
+              docker run -d -p 80:8080 --name 8bit-vote ${{ secrets.DOCKERHUB_USERNAME }}8bit-vote:latest
