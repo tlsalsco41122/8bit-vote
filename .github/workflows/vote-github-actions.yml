@@ -55,7 +55,7 @@ jobs:
         run: docker push ${{ secrets.DOCKER_USERNAME }}/8bit-vote:latest
 
       - name: EC2 Docker Run
-          uses: appleboy/ssh-action@v0.1.8
+          uses: appleboy/ssh-action@v1
           with:
             host: ${{ secrets.EC2_HOST }}
             username: ${{ secrets.EC2_USERNAME }}
