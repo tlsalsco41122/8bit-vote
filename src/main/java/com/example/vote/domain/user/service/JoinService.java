@@ -5,7 +5,6 @@ import com.example.vote.domain.user.entity.UserEntity;
 import com.example.vote.domain.user.repository.UserRepository;
 import com.example.vote.domain.vote.repository.RoomRepository;  // 추가
 import com.example.vote.domain.vote.repository.VoteRepository;  // 추가
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
