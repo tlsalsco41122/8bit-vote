@@ -48,6 +48,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())  // CSRF 비활성화
+                .cors(cors -> cors.disable())
 //                .authorizeRequests(authorizeRequests ->
 //                        authorizeRequests
 //                                .requestMatchers("/join", "/login").permitAll()  // 인증이 필요 없이 ㄱㄴ
