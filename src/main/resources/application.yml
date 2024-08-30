@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    active: prod
+  datasource:
+    url: jdbc:mysql://vote-database.cfiymiwi4n93.ap-northeast-2.rds.amazonaws.com:3306/vote_database
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: vote
+    password: 8bitvote
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  jwt:
+    secret: vmfhaltmskdlstkfkdgodyroqkfwkdbalroqkfwkdbalaaaaaaaaaaaaaaaabbbbb
+
+
+server:
+ port: 8080
+
+springdoc:
+  api-docs:
+    enabled: true
+    version: openapi_3_0
+    path: /v3/api-docs
+  default-consumes-media-type: application/json
+  auto-tag-classes: true
+  swagger-ui:
+    operationsSorter: method
+    path: /swagger-ui.html
