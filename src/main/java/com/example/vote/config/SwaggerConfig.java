@@ -15,8 +15,8 @@ public class SwaggerConfig {
     public OpenAPI api() {
         return new OpenAPI()
                 .info(
-                        new Info().title("JWT-study")
-                                .description("JWT-study API")
+                        new Info().title("API Test")
+                                .description("Let's practice Swagger UI")
                                 .version("1.0.0")
                 )
                 .addSecurityItem(new SecurityRequirement().addList("Authorization"))
