@@ -34,4 +34,10 @@ public class RoomService {
         return roomRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("방 조회에 실패했습니다."));
     }
+
+    // 방 삭제
+    public Room deleteRoom(Long id){
+        return roomRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("방 삭제에 실피했습니다."));
+    }
 }

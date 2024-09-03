@@ -17,11 +17,6 @@ public class UserController {
     private final JoinService joinService;
     private final JWTUtil jwtUtil;
 
-//    public UserController(JoinService joinService, JWTUtil jwtUtil) {
-//        this.joinService = joinService;
-//        this.jwtUtil = jwtUtil;
-//    }
-
     @PostMapping("/logout")
     public void logout(@RequestHeader("Authorization") String authorization) {
 

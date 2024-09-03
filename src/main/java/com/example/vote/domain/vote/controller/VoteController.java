@@ -3,6 +3,7 @@ package com.example.vote.domain.vote.controller;
 import com.example.vote.domain.vote.dto.VoteDTO;
 import com.example.vote.domain.vote.entity.Vote;
 import com.example.vote.domain.vote.service.VoteService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,13 +16,11 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/votes")
+@RequiredArgsConstructor
 public class VoteController {
 
     private final VoteService voteService;
 
-    public VoteController(VoteService voteService) {
-        this.voteService = voteService;
-    }
 
     // 투표 생성
     @PostMapping("/{roomId}")

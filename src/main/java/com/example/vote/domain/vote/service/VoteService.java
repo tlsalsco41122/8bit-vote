@@ -4,18 +4,15 @@ import com.example.vote.domain.vote.entity.Room;
 import com.example.vote.domain.vote.entity.Vote;
 import com.example.vote.domain.vote.repository.RoomRepository;
 import com.example.vote.domain.vote.repository.VoteRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class VoteService {
+
     private final VoteRepository voteRepository;
     private final RoomRepository roomRepository;
-
-    public VoteService(VoteRepository voteRepository, RoomRepository roomRepository) {
-
-        this.voteRepository = voteRepository;
-        this.roomRepository = roomRepository;
-    }
 
     public Vote vote(Long roomId, boolean choice) {
         // 특정 방에 대한 투표 생성: 방을 조회하고, 투표를 빌더 패턴으로 생성 후 저장

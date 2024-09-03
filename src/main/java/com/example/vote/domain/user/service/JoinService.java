@@ -5,24 +5,19 @@ import com.example.vote.domain.user.entity.UserEntity;
 import com.example.vote.domain.user.repository.UserRepository;
 import com.example.vote.domain.vote.repository.RoomRepository;  // 추가
 import com.example.vote.domain.vote.repository.VoteRepository;  // 추가
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class JoinService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoomRepository roomRepository;
     private final VoteRepository voteRepository;
-
-    public JoinService(UserRepository userRepository, PasswordEncoder passwordEncoder, RoomRepository roomRepository, VoteRepository voteRepository) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.roomRepository = roomRepository;
-        this.voteRepository = voteRepository;
-    }
 
     // 회원가입
     public void joinProcess(JoinDTO joinDTO) {
