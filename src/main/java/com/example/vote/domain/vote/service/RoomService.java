@@ -1,7 +1,9 @@
 package com.example.vote.domain.vote.service;
 
+import com.example.vote.domain.vote.dto.createRoomRequest;
 import com.example.vote.domain.vote.entity.Room;
 import com.example.vote.domain.vote.repository.RoomRepository;
+import com.example.vote.domain.vote.repository.UserSessionHolder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import java.util.List;
 public class RoomService {
 
     private final RoomRepository roomRepository;
+    private final UserSessionHolder userSessionHolder;
 
     // 방 생성
     public Room createRoom(String title, String contents) {
@@ -20,13 +23,14 @@ public class RoomService {
         }
         Room room = Room.builder()
                 .title(title)
-                .contents(contents).build();
+                .contents(contents)
+                .username(userSessionHolder.getUser()).build();
         return roomRepository.save(room);
     }
 
     // 모든 방 조회
-    public List<Room> getAllRooms() {
-        return roomRepository.findAll();
+    public List<createRoomRequest> getAllRooms() {
+        return roomRepository.findAll().stream().map(createRoomRequest::of).toList();
     }
 
     // 특정 방 조회
