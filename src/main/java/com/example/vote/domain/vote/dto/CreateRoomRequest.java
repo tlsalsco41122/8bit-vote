@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class createRoomRequest {
+public class CreateRoomRequest {
 
     private Long id;
 
@@ -22,10 +22,14 @@ public class createRoomRequest {
     @Size(min = 1, max = 500, message = "내용은 1자 ~ 500자 까지 가능합니다.")
     private String contents;
 
-    public static createRoomRequest of(Room room){
-        return createRoomRequest.builder()
+    private String username;
+
+    public static CreateRoomRequest of(Room room){
+        return CreateRoomRequest.builder()
                 .id(room.getId())
                 .title(room.getTitle())
-                .contents(room.getContents()).build();
+                .contents(room.getContents())
+                .username(room.getUsername())
+                .build();
     }
 }

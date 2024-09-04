@@ -21,16 +21,16 @@ public class VoteController {
 
     private final VoteService voteService;
 
-
     // 투표 생성
     @PostMapping("/{roomId}")
-    public Vote vote(@PathVariable Long roomId, @RequestBody VoteDTO voteDTO) {
-        return voteService.vote(roomId, voteDTO.isChoice());
+    public void createVote(@PathVariable(name = "roomId") Long roomId, @RequestBody VoteDTO voteDTO) {
+        System.out.println("v3");
+        voteService.createVote(roomId, voteDTO.isChoice());
     }
 
     // 투표 결과 조회
     @GetMapping("/{roomId}/results")
-    public Map<String, Long> getResults(@PathVariable Long roomId) {
+    public Map<String, Long> getResults(@PathVariable(name = "roomId") Long roomId) {
 
         long yesVotes = voteService.countYesVotes(roomId);
         long noVotes = voteService.countNoVotes(roomId);
