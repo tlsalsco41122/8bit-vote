@@ -24,7 +24,8 @@ public class RoomService {
         Room room = Room.builder()
                 .title(title)
                 .contents(contents)
-                .username(userSessionHolder.getUser()).build();
+                //.username(userSessionHolder.getUser())
+                .build();
         return roomRepository.save(room);
     }
 
