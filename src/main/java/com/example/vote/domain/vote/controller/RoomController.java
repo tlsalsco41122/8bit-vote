@@ -1,5 +1,6 @@
 package com.example.vote.domain.vote.controller;
 
+import com.example.vote.domain.vote.dto.CreateRoomRequest;
 import com.example.vote.domain.vote.dto.RoomRequest;
 import com.example.vote.domain.vote.dto.RoomResponse;
 import com.example.vote.domain.vote.entity.Room;
@@ -27,12 +28,13 @@ public class RoomController {
 
     // 방 생성
     @PostMapping
-    public void createRoom(@Valid @RequestBody Room room) {
-        roomService.createRoom(room.getTitle(),room.getContents());
+    public void createRoom(@Valid @RequestBody CreateRoomRequest createRoomRequest) {
+
+        roomService.createRoom(createRoomRequest.getTitle(), createRoomRequest.getContents());
     }
 
     // 모든 방 조회
-    @GetMapping()
+    @GetMapping
     public List<RoomRequest> getAllRooms() {
         return roomService.getAllRooms();
     }

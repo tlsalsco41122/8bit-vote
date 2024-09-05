@@ -34,8 +34,8 @@ public class Room {
     @Column(nullable = false)
     private String contents;
 
-    @Column(nullable = false)
-    private String username;
+//    @Column(nullable = false)
+//    private String username;
 
     @Builder.Default
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
