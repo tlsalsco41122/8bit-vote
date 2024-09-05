@@ -8,5 +8,4 @@ import lombok.Setter;
 public class VoteDTO {
 
     private boolean choice;
-    private Long roomId;
 }
