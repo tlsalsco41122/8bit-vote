@@ -16,14 +16,14 @@ public class RoomService {
     private final RoomRepository roomRepository;
 
     // 방 생성
-    public void createRoom(String title, String contents) {
+    public Room createRoom(String title, String contents) {
         if (title == null || title.isEmpty() || contents == null || contents.isEmpty()) {
             throw new IllegalArgumentException("제목이나 내용이 비어있습니다.");
         }
         Room room = Room.builder()
                 .title(title)
                 .contents(contents).build();
-        roomRepository.save(room);
+        return roomRepository.save(room);
     }
 
 

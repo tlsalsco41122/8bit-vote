@@ -28,9 +28,9 @@ public class RoomController {
 
     // 방 생성
     @PostMapping
-    public void createRoom(@Valid @RequestBody CreateRoomRequest createRoomRequest) {
+    public Room createRoom(@Valid @RequestBody CreateRoomRequest createRoomRequest) {
 
-        roomService.createRoom(createRoomRequest.getTitle(), createRoomRequest.getContents());
+        return roomService.createRoom(createRoomRequest.getTitle(), createRoomRequest.getContents());
     }
 
     // 모든 방 조회
