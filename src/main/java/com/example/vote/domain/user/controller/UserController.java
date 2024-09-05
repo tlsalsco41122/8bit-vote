@@ -22,7 +22,6 @@ public class UserController {
 
         if (authorization != null && authorization.startsWith("Bearer ")) {
             String token = authorization.split(" ")[1];
-//            jwtUtil.blacklistToken(token); // 블랙리스트에 추가
         }
     }
 
