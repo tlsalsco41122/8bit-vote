@@ -29,6 +29,7 @@ public class RoomService {
         roomRepository.save(room);
     }
 
+
     // 모든 방 조회
     public List<RoomRequest> getAllRooms() {
         return roomRepository.findAll().stream().map(RoomRequest::of).toList();
@@ -42,7 +43,6 @@ public class RoomService {
 
     // 방 삭제
     public void deleteRoom(Long id){
-        System.out.println("d");
         roomRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("방 삭제에 실피했습니다."));
     }
