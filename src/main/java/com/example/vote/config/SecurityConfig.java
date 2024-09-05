@@ -49,7 +49,7 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests((configurer) -> configurer
                         .requestMatchers(HttpMethod.POST, "/join", "/login").anonymous()
-                        .requestMatchers(HttpMethod.POST, "/rooms/**", "/votes/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/rooms/**", "/votes/**","/users/**").authenticated()
                         .requestMatchers(HttpMethod.GET, "/rooms/**", "/votes/**").authenticated()
                         .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 )

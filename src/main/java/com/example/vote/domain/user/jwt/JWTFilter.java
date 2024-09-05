@@ -26,20 +26,14 @@ public class JWTFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         String token = request.getHeader("Authorization");
-        System.out.println(token);
 
         if (token != null && token.startsWith("Bearer ")) {
             token = token.substring(7);
             try {
-                System.out.println(token);
                 if (!jwtUtil.isExpired(token)) {
-                    System.out.println("1");
                     String username = jwtUtil.getUsername(token);
-                    System.out.println("2");
                     Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
-                    System.out.println("3");
                     SecurityContextHolder.getContext().setAuthentication(authentication);
-                    System.out.println("4");
                 }
             } catch (Exception e) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

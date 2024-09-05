@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -42,7 +41,6 @@ public class RoomController {
     // 특정 방 조회
     @GetMapping("/{id}")
     public RoomResponse getRoom(@PathVariable(name="id") Long id) {
-        System.out.println(".");
          return roomService.getRoom(id);
     }
 

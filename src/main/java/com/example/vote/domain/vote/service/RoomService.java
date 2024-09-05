@@ -36,7 +36,6 @@ public class RoomService {
 
     // 특정 방 조회
     public RoomResponse getRoom(Long id) {
-        System.out.println(".");
         return RoomResponse.of(roomRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("방 조회에 실패했습니다.")));
     }

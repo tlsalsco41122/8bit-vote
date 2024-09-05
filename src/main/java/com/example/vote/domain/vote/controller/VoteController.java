@@ -1,7 +1,6 @@
 package com.example.vote.domain.vote.controller;
 
 import com.example.vote.domain.vote.dto.VoteDTO;
-import com.example.vote.domain.vote.entity.Vote;
 import com.example.vote.domain.vote.service.VoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +23,6 @@ public class VoteController {
     // 투표 생성
     @PostMapping("/{roomId}")
     public void createVote(@PathVariable(name = "roomId") Long roomId, @RequestBody VoteDTO voteDTO) {
-        System.out.println("v3");
         voteService.createVote(roomId, voteDTO.isChoice());
     }
 
